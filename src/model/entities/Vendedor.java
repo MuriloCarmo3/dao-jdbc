@@ -13,6 +13,10 @@ public class Vendedor implements Serializable {
 
     private Departamento departamento;
 
+    public Vendedor(){
+
+    }
+
     public Vendedor(Integer id, String nome, String email, Date dataDeAniversario, Double salarioBase, Departamento departamento) {
         this.id = id;
         this.nome = nome;
