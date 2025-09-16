@@ -13,7 +13,7 @@ public class Programa2 {
 
         DepartamentoDao departamentoDao = FabricaDao.createDepartamentoDao();
 
-        System.out.println();
+        /*System.out.println();
         System.out.println("=== TEST 1: delete departamento ===");
         System.out.println("insira o id para teste de exclusão");
         int id = sc.nextInt();
@@ -23,6 +23,13 @@ public class Programa2 {
         System.out.println();
         System.out.println("=== TEST 2: findById departamento ===");
         Departamento departamento = departamentoDao.findById(1);
-        System.out.println(departamento);
+        System.out.println(departamento);*/
+
+        System.out.println();
+        System.out.println("=== TEST 3: update departamento ===");
+        Departamento departamento = departamentoDao.findById(7);
+        departamento.setNome("Fitness");
+        departamentoDao.updade(departamento);
+        System.out.println("Update concluido!");
     }
 }
