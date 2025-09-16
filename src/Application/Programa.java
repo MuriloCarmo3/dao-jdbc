@@ -7,10 +7,13 @@ import model.entities.Vendedor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class Programa {
     public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
 
         VendedorDao vendedorDao = FabricaDao.createVendedorDao();
 
@@ -47,5 +50,12 @@ public class Programa {
         vendedor.setNome("Maria Sale");
         vendedorDao.updade(vendedor);
         System.out.println("Update completo");
+
+        System.out.println();
+        System.out.println("=== TEST 6: delete vendedor ===");
+        System.out.println("insira o id para teste de exclusão");
+        int id = sc.nextInt();
+        vendedorDao.deleteById(id);
+        System.out.println("exclusão concluída!");
     }
 }
