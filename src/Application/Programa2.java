@@ -2,6 +2,7 @@ package Application;
 
 import model.dao.DepartamentoDao;
 import model.dao.FabricaDao;
+import model.entities.Departamento;
 
 import java.util.Scanner;
 
@@ -18,5 +19,10 @@ public class Programa2 {
         int id = sc.nextInt();
         departamentoDao.deleteById(id);
         System.out.println("exclusao concluida!");
+
+        System.out.println();
+        System.out.println("=== TEST 2: findById departamento ===");
+        Departamento departamento = departamentoDao.findById(1);
+        System.out.println(departamento);
     }
 }
