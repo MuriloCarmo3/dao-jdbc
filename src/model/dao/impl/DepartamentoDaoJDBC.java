@@ -6,10 +6,7 @@ import db.DbIntegrityException;
 import model.dao.DepartamentoDao;
 import model.entities.Departamento;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class DepartamentoDaoJDBC implements DepartamentoDao {
@@ -23,6 +20,31 @@ public class DepartamentoDaoJDBC implements DepartamentoDao {
     @Override
     public void insert(Departamento obj) {
 
+        PreparedStatement st = null;
+
+        try {
+            st = conn.prepareStatement("INSERT INTO department (Name) VALUES (?) ", Statement.RETURN_GENERATED_KEYS);
+            st.setString(1,obj.getNome());
+
+            int linhasAfetadas = st.executeUpdate();
+
+            if (linhasAfetadas > 0){
+                ResultSet rs = st.getGeneratedKeys();
+                if (rs.next()){
+                    int id = rs.getInt(1);
+                    obj.setId(id);
+                }
+            }
+            else {
+                throw new DbIntegrityException("Nenhuma linha foi afetada");
+            }
+        }
+        catch (SQLException e){
+            throw new DbIntegrityException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override
