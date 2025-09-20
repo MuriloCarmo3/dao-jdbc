@@ -4,6 +4,7 @@ import model.dao.DepartamentoDao;
 import model.dao.FabricaDao;
 import model.entities.Departamento;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Programa2 {
@@ -37,5 +38,13 @@ public class Programa2 {
         Departamento novoDepartamento = new Departamento("Music", null);
         departamentoDao.insert(novoDepartamento);
         System.out.println("Inserido novo departamento! " + novoDepartamento);
+
+        System.out.println();
+        System.out.println("=== TEST 4: findAll departamento ===");
+        List<Departamento> list = departamentoDao.findAll();
+
+        for (Departamento obj : list){
+            System.out.println(obj);
+        }
     }
 }

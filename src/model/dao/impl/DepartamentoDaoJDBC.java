@@ -7,7 +7,10 @@ import model.dao.DepartamentoDao;
 import model.entities.Departamento;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DepartamentoDaoJDBC implements DepartamentoDao {
 
@@ -113,6 +116,35 @@ public class DepartamentoDaoJDBC implements DepartamentoDao {
 
     @Override
     public List<Departamento> findAll() {
-        return List.of();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("SELECT * FROM department ORDER BY Id ");
+            rs = st.executeQuery();
+
+            List<Departamento> list = new ArrayList<>();
+            Map<Integer, Departamento> map = new HashMap<>();
+
+            while (rs.next()){
+                int id = rs.getInt("Id");
+
+                Departamento dep = map.get(rs.getInt("Id"));
+
+                if (dep == null){
+                    dep = new Departamento();
+                    dep.setId(id);
+                    dep.setNome(rs.getString("Name"));
+                }
+                list.add(dep);
+            }
+            return list;
+        }
+        catch (SQLException e){
+            throw new DbIntegrityException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 }
